@@ -49,3 +49,5 @@ group :development do
   # gem "spring"
 end
 
+# password crypt
+gem "bcrypt", "~> 3.1"
