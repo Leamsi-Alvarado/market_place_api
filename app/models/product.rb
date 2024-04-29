@@ -7,4 +7,15 @@ class Product < ApplicationRecord
   scope :above_or_equal, lambda{|price| where('price >= ?', price)}
   scope :below_or_equal, lambda{|price| where('price <= ?', price)}
   scope :recent, lambda {order(:updated_at)}
+
+  def self.search(params={})
+    products = params[:product_ids].present? ? Product.where(id: params[:product_ids]) : Product.all
+
+    products = products.filter_by_title(params[:keyword]) if params[:keyword]
+    products = products.above_or_equal(params[:min_price].to_f) if params[:min_price]
+    products = products.below_or_equal(params[:max_price].to_f) if params[:max_price]
+    products = products.recent if params[:params]
+
+    products
+  end
 end
