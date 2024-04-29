@@ -8,4 +8,5 @@ class User < ApplicationRecord
 
   #Relations with other models
   has_many :products, dependent: :destroy
+  has_many :orders, dependent: :destroy
 end
