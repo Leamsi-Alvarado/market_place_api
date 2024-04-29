@@ -16,4 +16,11 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal [products(:another_tv), products(:one)], Product.filter_by_title('tv').sort
   end
 
+  test 'Should filter product by price above or equal 300' do
+    assert_equal [products(:two), products(:one)], Product.above_or_equal(300).sort
+  end
+
+  test 'Should filter product by price below or equal 300' do
+    assert_equal [products(:another_tv)], Product.below_or_equal(300).sort
+  end
 end
