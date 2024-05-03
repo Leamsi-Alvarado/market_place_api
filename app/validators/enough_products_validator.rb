@@ -1,9 +1,9 @@
 class EnoughProductsValidator < ActiveModel::Validator
   def validate(record)
-    record.placements.each do |placements|
-      product  = placement.product
-      if placement.quantity > product.quantity
-        record.errors[product.title.to_s] << "Is out of stock, just #{product.quantity} left"
+    record.placements.each do |placement|
+      product = placement.product
+      if placement.quantity.to_i > product.quantity
+        record.errors.add(product.title, "Is out of stock, only #{product.quantity} left")
       end
     end
   end
